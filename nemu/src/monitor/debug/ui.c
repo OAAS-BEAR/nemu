@@ -8,7 +8,7 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
-
+uint32_t expr(char *e, bool *success);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -31,11 +31,35 @@ static int cmd_c(char *args) {
   cpu_exec(-1);
   return 0;
 }
-
+static int cmd_p(char* args){
+	bool success;
+	uint32_t value=expr(args,&success);
+	if(success){
+		printf(" the value of expression is %d",value);
+	}
+	else{
+		printf(" fail to get the value of expression");
+	}
+	return 0;
+}
 static int cmd_q(char *args) {
   return -1;
 }
-
+static int cmd_si(char*args){
+	return 0;
+}
+static int cmd_info(char*args){
+	return 0;
+}
+static int cmd_x(char*args){
+	return 0;
+}
+static int cmd_w(char*args){
+	return 0;
+}
+static int cmd_d(char*args){
+	return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -46,6 +70,12 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si","dan bu zhi xing", cmd_si},
+  { "info", "print the state of program", cmd_info},
+  { "p",  "calculate the value of expression", cmd_p},
+  { "x", "scan memory", cmd_x},
+  { "w", "set monitor point", cmd_w},
+  { "d", "delete monitor point", cmd_d}
 
   /* TODO: Add more commands */
 
