@@ -45,14 +45,27 @@ WP * new_wp(char *str){
 }
 bool check_watchpoints(){
 	WP* w=head;
+	bool change=false;
 	while(w!=NULL){
 	      bool success=true;
               uint32_t newvalue=expr(w->str,&success);
-	      if(newvalue!=w->value)
-		      return true;
+	      if(newvalue!=w->value){
+		      w->value=newvalue;
+                      change=true;
+	      }
 	      w=w->next;
 	}
-	return false;
+	if(change){
+		printf("the value of watchpoint changed\n");
+	}
+	return change;
+}
+void info_watch(){
+	WP* w=head;
+	while(w!=NULL){
+		printf("watchpoint %s: %d\n",w->str,w->value);
+		w=w->next;
+	}
 }
 void free_wp(int N){
        WP* wp=&wp_pool[N];

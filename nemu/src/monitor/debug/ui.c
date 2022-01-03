@@ -7,6 +7,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 WP * new_wp(char *str);
+void info_watch();
 void free_wp(int N);
 void isa_reg_display();
 void cpu_exec(uint64_t);
@@ -51,7 +52,7 @@ static int cmd_si(char*args){
 	int num=0;
         sscanf(args,"%d",&num);
         cpu_exec(num);
-	Log("current PC:%08x\n",cpu.pc);
+	printf("current PC:%08x\n",cpu.pc);
 	return 0;
 }
 static int cmd_info(char*args){
@@ -59,7 +60,7 @@ static int cmd_info(char*args){
               isa_reg_display();
 	}
 	else{
-	    ;
+	    info_watch();
 	}
 	return 0;
 }
