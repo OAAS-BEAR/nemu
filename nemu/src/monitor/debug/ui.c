@@ -46,6 +46,10 @@ static int cmd_q(char *args) {
   return -1;
 }
 static int cmd_si(char*args){
+	int num=0;
+        sscanf(args,"%d",&num);
+        cpu_exec(num);
+	Log("exec %d instructions,current PC:%08x\n",num,cpu.pc);
 	return 0;
 }
 static int cmd_info(char*args){
