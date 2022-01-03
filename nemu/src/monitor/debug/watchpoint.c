@@ -75,7 +75,7 @@ void free_wp(int N){
 			       w->next=wp->next;
 			       wp->status=false;
 			       end=free_;
-			       free_==wp;
+			       free_=wp;
 			       free_->next=end;
 			       success=true;
 			       break;
