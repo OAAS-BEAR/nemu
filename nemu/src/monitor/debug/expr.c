@@ -34,7 +34,7 @@ static struct rule {
   {"[0-9]+",TK_DECIMAL},
   {"!=",TK_NE},
   {"&&",TK_AND},
-  {"\\$(0|ra|sp|gp|tp|t[0-6]|s[0-9]|s10|s11|a[0-7])",TK_REGIS},
+  {"\\$(0|ra|sp|gp|tp|t[0-6]|s[0-9]|s10|s11|a[0-7]|pc)",TK_REGIS},
   {"\\(",TK_LEFT},
   {"\\)",TK_RIGHT},
   {"==",TK_EQUAL},

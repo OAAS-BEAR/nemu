@@ -80,6 +80,9 @@ uint32_t isa_reg_str2val(const char *s, bool *success) {
                  return cpu.gpr[30]._32;
          else if(strcmp(s,"$t6")==0)
                  return cpu.gpr[31]._32;
+	 else if(strcmp(s,"$pc")==0)
+                 return cpu.pc;
+
 	 else{  
 		 *success=false;
 		 return -1;

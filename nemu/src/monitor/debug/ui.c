@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+WP * new_wp(char *str);
+void free_wp(int N);
 void isa_reg_display();
 void cpu_exec(uint64_t);
 uint32_t expr(char *e, bool *success);
