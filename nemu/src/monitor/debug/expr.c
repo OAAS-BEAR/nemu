@@ -235,6 +235,11 @@ uint32_t eval(int q, int p,bool * success){
 	else{
 	      int op=main_operator(q,p);
 	      printf("main op at position %d\n",op);
+
+	      if(op<0){
+		      return 0;
+		      *success=false;
+	      }
               uint32_t val1=eval(q,op-1,success);
 	      uint32_t val2=eval(op+1,p,success);
 	        switch(tokens[op].type){
