@@ -105,6 +105,7 @@ static bool make_token(char *e) {
 		      break;
                 default:
 		     tokens[nr_token].type=rules[i].token_type;
+		     printf("%d\n",tokens[nr_token].type);
 		     nr_token++;
 		     
 
@@ -221,8 +222,10 @@ uint32_t eval(int q, int p,bool * success){
                                 value=isa_reg_str2val(tokens[q].str,success);
 				break;
 			default:
+				*success=false;
 				break;
 	}
+		    printf("get value:%d\n",value);
                     return value;
 	}
 	else if(check_parent(p,q)==true){
@@ -230,6 +233,7 @@ uint32_t eval(int q, int p,bool * success){
 	}
 	else{
 	      int op=main_operator(q,p);
+	      printf("main op at position %d\n",op);
               uint32_t val1=eval(p,op-1,success);
 	      uint32_t val2=eval(op+1,q,success);
 	        switch(tokens[op].type){
