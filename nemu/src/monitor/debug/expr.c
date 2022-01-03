@@ -207,6 +207,7 @@ int main_operator(int q,int p){
 
 uint32_t eval(int q, int p,bool * success){
 	if(q>p){
+		*success=false;
 		return 0;
 	}
 	else if(q==p){
@@ -234,8 +235,8 @@ uint32_t eval(int q, int p,bool * success){
 	else{
 	      int op=main_operator(q,p);
 	      printf("main op at position %d\n",op);
-              uint32_t val1=eval(p,op-1,success);
-	      uint32_t val2=eval(op+1,q,success);
+              uint32_t val1=eval(q,op-1,success);
+	      uint32_t val2=eval(op+1,p,success);
 	        switch(tokens[op].type){
 			case TK_PLUS:
 				return val1+val2;

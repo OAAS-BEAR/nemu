@@ -35,10 +35,10 @@ static int cmd_p(char* args){
 	bool success=true;
 	uint32_t value=expr(args,&success);
 	if(success){
-		printf(" the value of expression is %d",value);
+		printf(" the value of expression is %d\n",value);
 	}
 	else{
-		printf(" fail to get the value of expression");
+		printf(" fail to get the value of expression\n");
 	}
 	return 0;
 }
