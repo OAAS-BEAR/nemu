@@ -229,8 +229,8 @@ uint32_t eval(int q, int p,bool * success){
 		    printf("get value:%d\n",value);
                     return value;
 	}
-	else if(check_parent(p,q)==true){
-		return eval(p+1,q-1,success);
+	else if(check_parent(q,p)==true){
+		return eval(q+1,p-1,success);
 	}
 	else{
 	      int op=main_operator(q,p);
