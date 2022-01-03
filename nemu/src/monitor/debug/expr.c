@@ -104,12 +104,12 @@ static bool make_token(char *e) {
                 case TK_REGIS:
 	              tokens[nr_token].type=rules[i].token_type;
 		      strncpy(tokens[nr_token].str,substr_start,substr_len<=32?substr_len:32); 
-		      printf("%s\n",tokens[nr_token].str);
+	//	      printf("%s\n",tokens[nr_token].str);
                       nr_token++;
 		      break;
                 default:
 		     tokens[nr_token].type=rules[i].token_type;
-		     printf("%d\n",tokens[nr_token].type);
+	//	     printf("%d\n",tokens[nr_token].type);
 		     nr_token++;
 		     
 
