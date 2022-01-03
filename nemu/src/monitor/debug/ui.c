@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
+void isa_reg_display();
 void cpu_exec(uint64_t);
 uint32_t expr(char *e, bool *success);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -53,6 +53,12 @@ static int cmd_si(char*args){
 	return 0;
 }
 static int cmd_info(char*args){
+	if(strcmp(args,"r")==0){
+              isa_reg_display();
+	}
+	else{
+	    ;
+	}
 	return 0;
 }
 static int cmd_x(char*args){
