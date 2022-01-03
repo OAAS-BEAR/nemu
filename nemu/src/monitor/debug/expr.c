@@ -230,7 +230,7 @@ uint32_t eval(int q, int p,bool * success){
 				*success=false;
 				break;
 	}
-		    printf("get value:%d\n",value);
+	//	    printf("get value:%d\n",value);
                     return value;
 	}
 	else if(check_parent(q,p)==true){
@@ -238,7 +238,7 @@ uint32_t eval(int q, int p,bool * success){
 	}
 	else{
 	      int op=main_operator(q,p);
-	      printf("main op at position %d\n",op);
+	  //    printf("main op at position %d\n",op);
 
 	      if(op<0){
 		      return 0;
