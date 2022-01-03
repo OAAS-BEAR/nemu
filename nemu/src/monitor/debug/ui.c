@@ -49,7 +49,7 @@ static int cmd_si(char*args){
 	int num=0;
         sscanf(args,"%d",&num);
         cpu_exec(num);
-	Log("exec %d instructions,current PC:%08x\n",num,cpu.pc);
+	Log("current PC:%08x\n",cpu.pc);
 	return 0;
 }
 static int cmd_info(char*args){
@@ -80,9 +80,13 @@ static int cmd_x(char*args){
 }
 
 static int cmd_w(char*args){
+	new_wp(args);
 	return 0;
 }
 static int cmd_d(char*args){
+	int num;
+	sscanf(args,"%d",&num);
+        free_wp(num);
 	return 0;
 }
 static int cmd_help(char *args);

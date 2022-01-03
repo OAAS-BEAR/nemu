@@ -17,7 +17,7 @@ NEMUState nemu_state = {.state = NEMU_STOP};
 void interpret_rtl_exit(int state, vaddr_t halt_pc, uint32_t halt_ret) {
   nemu_state = (NEMUState) { .state = state, .halt_pc = halt_pc, .halt_ret = halt_ret };
 }
-
+bool check_watchpoints();
 vaddr_t exec_once(void);
 void difftest_step(vaddr_t ori_pc, vaddr_t next_pc);
 void asm_print(vaddr_t ori_pc, int instr_len, bool print_flag);
@@ -61,6 +61,7 @@ void cpu_exec(uint64_t n) {
   log_clearbuf();
 
     /* TODO: check watchpoints here. */
+  bool change=check_watchpoints();
 
 #endif
 
@@ -72,6 +73,10 @@ void cpu_exec(uint64_t n) {
 #endif
 
     if (nemu_state.state != NEMU_RUNNING) break;
+    if(change){
+	    nemu_state.state=NEMU_STOP;
+	    break;
+    }
   }
 
   switch (nemu_state.state) {
