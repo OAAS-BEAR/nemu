@@ -62,7 +62,7 @@ static int cmd_info(char*args){
 	return 0;
 }
 static int cmd_x(char*args){
-	    int success=true;
+	    bool success=true;
             char* token=strtok(args," ");
 	    char *arg = args + strlen(token) + 1;
 	    uint32_t value=expr(arg,&success);
