@@ -63,7 +63,7 @@ bool check_watchpoints(){
 void info_watch(){
 	WP* w=head;
 	while(w!=NULL){
-		printf("watchpoint %s: %d\n",w->str,w->value);
+		printf("watchpoint NO.%d %s: %8x\n",w->NO,w->str,w->value);
 		w=w->next;
 	}
 }
