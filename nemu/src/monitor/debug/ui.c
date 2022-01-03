@@ -42,7 +42,7 @@ static int cmd_p(char* args){
 	}
 	return 0;
 }
-static int cmd_q(char *args) {
+static int cmd_q(char *args){
   return -1;
 }
 static int cmd_si(char*args){
@@ -62,8 +62,23 @@ static int cmd_info(char*args){
 	return 0;
 }
 static int cmd_x(char*args){
+	    int success=true;
+            char* token=strtok(args," ");
+	    char *arg = args + strlen(token) + 1;
+	    uint32_t value=expr(arg,&success);
+	    if(success){
+	           int num;
+		   sscanf(token,"%d",&num);
+                   for(int i=0;i<num;i++){
+	                  uint32_t this_read=paddr_read(value+4*i,4);
+			  printf("memory 0x%8x:  0x%8x\n",value+4*i,this_read);
+                          			  
+		   }        
+	}
+
 	return 0;
 }
+
 static int cmd_w(char*args){
 	return 0;
 }
