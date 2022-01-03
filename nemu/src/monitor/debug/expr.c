@@ -9,7 +9,7 @@
 uint32_t isa_reg_str2val(const char *s, bool *success);
 enum {
   TK_NOTYPE = 256, TK_EQ,TK_REGIS,TK_DECIMAL,TK_HEXA,TK_PLUS,TK_MINUS,
-  TK_DIVIDE,TK_NE,TK_MUL,TK_AND,TK_LEFT,TK_RIGHT,TK_EQUAL
+  TK_DIVIDE,TK_NE,TK_MUL,TK_AND,TK_LEFT,TK_RIGHT,TK_EQUAL,TK_DEREF,TK_NEGTIVE
 
   /* TODO: Add more token types */
 
@@ -169,10 +169,19 @@ bool check_parent(int q,int p){
 int priority(int type){
         int p=10;
 	switch(type){
+		case TK_NEGTIVE: case TK_DEREF:
+			p=5;
+			break;
 		case TK_MUL: case TK_DIVIDE:
-			p=2;
+			p=4;
 			break;
 		case TK_PLUS: case TK_MINUS:
+			p=3;
+			break;
+		case TK_NE: case TK_EQUAL:
+			p=2;
+			break;
+		case TK_AND:
 			p=1;
 			break;
 		}
@@ -195,9 +204,9 @@ int main_operator(int q,int p){
 	      ;
       }
 
-
+     
       int p=priority(tokens[num].type);
-      if(p<=2&&ignore==0){
+      if(p<=5&&ignore==0){
             if(p<=operator_prio){
 	       operator=num;
                operator_prio=p;
@@ -211,7 +220,6 @@ int main_operator(int q,int p){
 
 uint32_t eval(int q, int p,bool * success){
 	if(q>p){
-		*success=false;
 		return 0;
 	}
 	else if(q==p){
@@ -244,6 +252,7 @@ uint32_t eval(int q, int p,bool * success){
 		      return 0;
 		      *success=false;
 	      }
+	      uint32_t final_value;
               uint32_t val1=eval(q,op-1,success);
 	      uint32_t val2=eval(op+1,p,success);
 	        switch(tokens[op].type){
@@ -261,15 +270,39 @@ uint32_t eval(int q, int p,bool * success){
 				return val1!=val2;
 			case TK_EQUAL:
 				return val1==val2;
+			case TK_DEREF:
+				final_value =paddr_read(val2,4);
+				return final_value;
+			case TK_NEGTIVE:
+				return -val2;
 			default:
 				assert(0);
 		}
 	}
 }
+
+bool is_operator(int type){
+	if(type==TK_MINUS||type==TK_PLUS||type==TK_MUL||type==TK_DIVIDE||type==TK_AND
+			||type==TK_EQUAL||type==TK_NE||type==TK_NEGTIVE||type==TK_DEREF)
+		return true;
+	else
+		return false;
+}
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
+  }
+  for(int i=0;i<nr_token;i++){
+	  if(tokens[i].type==TK_MUL&&(i==0||is_operator(tokens[i-1].type))){
+		  tokens[i].type=TK_DEREF;
+	  }
+	  else if(tokens[i].type==TK_MINUS&&(i==0||is_operator(tokens[i-1].type))){
+                  tokens[i].type=TK_NEGTIVE;
+	  }
+	  else{
+		  ;
+	  }
   }
 
   /* TODO: Insert codes to evaluate the expression. */
