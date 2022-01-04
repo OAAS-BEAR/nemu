@@ -14,10 +14,10 @@ make_EHelper(aui){
   }
   
 make_EHelper(j){
-   rtl_add(&decinfo.jmp_pc,&id_src->val,&decinfo.seq_pc);
+   rtl_add(&decinfo.jmp_pc,&id_src->val,&cpu.pc);
    rtl_j(decinfo.jmp_pc);
    Log("pc %x\n",decinfo.jmp_pc);
-   vaddr_t r_pc=decinfo.seq_pc+4;
+   vaddr_t r_pc=decinfo.seq_pc;
    rtl_sr(id_dest->reg,&r_pc,4);
  
 }
@@ -26,7 +26,7 @@ make_EHelper(jr){
            vaddr_t n_pc=id_src->addr & 0xfffffffe;
            rtl_j(n_pc);
            
-           vaddr_t r_pc=decinfo.seq_pc+4;
+           vaddr_t r_pc=decinfo.seq_pc;
            rtl_sr(id_dest->reg,&r_pc,4);
          }
            
