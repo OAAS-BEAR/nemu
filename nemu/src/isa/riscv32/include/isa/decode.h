@@ -59,4 +59,6 @@ make_DHelper(RI);
 make_DHelper(JAL);
 make_DHelper(JALR);
 make_DHelper(AUIPC);
+make_DHelper(B);
+make_DHelper(R);
 #endif

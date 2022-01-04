@@ -21,9 +21,9 @@ static make_EHelper(store) {
 
 static OpcodeEntry opcode_table [32] = {
   /* b00 */ IDEX(ld, load), EMPTY, EMPTY, EMPTY, IDEX(RI,ri), IDEX(AUIPC,aui), EMPTY, EMPTY,
-  /* b01 */ IDEX(st, store), EMPTY, EMPTY, EMPTY, EMPTY, IDEX(U, lui), EMPTY, EMPTY,
+  /* b01 */ IDEX(st, store), EMPTY, EMPTY, EMPTY, IDEX(R,r), IDEX(U, lui), EMPTY, EMPTY,
   /* b10 */ EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
-  /* b11 */ EMPTY, IDEX(JALR,jr), EX(nemu_trap), IDEX(JAL,j), EMPTY, EMPTY, EMPTY, EMPTY,
+  /* b11 */ IDEX(B,b), IDEX(JALR,jr), EX(nemu_trap), IDEX(JAL,j), EMPTY, EMPTY, EMPTY, EMPTY,
 };
 
 void isa_exec(vaddr_t *pc) {

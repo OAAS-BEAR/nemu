@@ -43,9 +43,18 @@ make_DHelper(JAL){
     decode_op_i(id_src,offset,true);
     print_Dop(id_src->str, OP_STR_SIZE, "0x%x",offset);
     decode_op_r(id_dest, decinfo.isa.instr.rd, false);
-
+    
 }
-
+make_DHelper(B){
+    int32_t offset=decinfo.isa.instr.simm12<<12|decinfo.isa.instr.imm11<<11|decinfo.isa.instr.imm10_5<<5|decinfo.isa.instr.imm4_1<<1;
+    offset=((offset<<19)>>19);
+    Log("offset %x\n",offset);
+    decode_op_i(id_dest,offset,true);
+    decode_op_r(id_src, decinfo.isa.instr.rs1, true);
+    decode_op_r(id_src2, decinfo.isa.instr.rs2, true);    
+    }
+    
+    
 make_DHelper(JALR){
     int32_t offset=decinfo.isa.instr.simm11_0;
     offset=((offset<<20)>>20);
@@ -59,6 +68,8 @@ make_DHelper(JALR){
    
     
 }
+
+
 make_DHelper(ld) {
   decode_op_r(id_src, decinfo.isa.instr.rs1, true);
   decode_op_i(id_src2, decinfo.isa.instr.simm11_0, true);
@@ -74,6 +85,14 @@ make_DHelper(RI){
   decode_op_i(id_src2, decinfo.isa.instr.simm11_0, true);
   decode_op_r(id_dest, decinfo.isa.instr.rd, false);
   }
+  
+make_DHelper(R){
+    decode_op_r(id_src, decinfo.isa.instr.rs1, true);
+    decode_op_r(id_src2, decinfo.isa.instr.rs2, true);
+    decode_op_r(id_dest, decinfo.isa.instr.rd, false);
+    }
+    
+
   
 make_DHelper(st) {
   decode_op_r(id_src, decinfo.isa.instr.rs1, true);
