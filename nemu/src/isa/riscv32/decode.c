@@ -37,8 +37,8 @@ make_DHelper(AUIPC){
    }
    
 make_DHelper(JAL){
-    int32_t offset=decinfo.isa.instr.simm20<<19|decinfo.isa.instr.imm19_12<<11|decinfo.isa.instr.imm11_<<10|decinfo.isa.instr.imm10_1;
-    offset=((offset<<12)>>12);
+    int32_t offset=decinfo.isa.instr.simm20<<20|decinfo.isa.instr.imm19_12<<12|decinfo.isa.instr.imm11_<<11|decinfo.isa.instr.imm10_1;
+    offset=((offset<<11)>>11);
     decode_op_i(id_src,offset,true);
     print_Dop(id_src->str, OP_STR_SIZE, "0x%x",offset);
     decode_op_r(id_dest, decinfo.isa.instr.rd, false);
