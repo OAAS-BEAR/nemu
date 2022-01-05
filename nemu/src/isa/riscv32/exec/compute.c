@@ -16,7 +16,7 @@ make_EHelper(aui){
 make_EHelper(j){
    rtl_add(&decinfo.jmp_pc,&id_src->val,&cpu.pc);
    rtl_j(decinfo.jmp_pc);
-   Log("pc %x\n",decinfo.jmp_pc);
+//   Log("pc %x\n",decinfo.jmp_pc);
    vaddr_t r_pc=decinfo.seq_pc;
    rtl_sr(id_dest->reg,&r_pc,4);
    print_asm_template2(j);
@@ -45,7 +45,7 @@ make_EHelper(ri){
                 result=0;                
                 rtl_add(&result,&imm,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
-                print_asm_template2(addi);
+                print_asm_template3(addi);
                 break;
           case 2:
                 imm=id_src2->val;
@@ -60,7 +60,7 @@ make_EHelper(ri){
                 else{
                    rtl_sr(id_dest->reg,&result,4);
                    }
-                   print_asm_template2(slti);
+                   print_asm_template3(slti);
                   break; 
                   
                    
@@ -77,7 +77,7 @@ make_EHelper(ri){
                 else{
                    rtl_sr(id_dest->reg,&result,4);
                    }
-                   print_asm_template2(sltiu);
+                   print_asm_template3(sltiu);
                   break;
           case 4:
                 imm=id_src2->val;
@@ -85,7 +85,7 @@ make_EHelper(ri){
              //   result;                
                 rtl_xor(&result,&imm,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
-               print_asm_template2(xori);
+               print_asm_template3(xori);
                 break;    
                      
           case 6:
@@ -94,7 +94,7 @@ make_EHelper(ri){
                // result;                
                 rtl_or(&result,&imm,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
-               print_asm_template2(ori);
+               print_asm_template3(ori);
                 break;                
           case 7:
                 imm=id_src2->val;
@@ -102,7 +102,7 @@ make_EHelper(ri){
               //  result;                
                 rtl_and(&result,&imm,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
-                print_asm_template2(andi);
+                print_asm_template3(andi);
                 break;          
 }
 
@@ -170,12 +170,12 @@ make_EHelper(r){
                 if(decinfo.isa.instr.funct7==0){              
                 rtl_add(&result,&id_src2->val,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
-                print_asm_template2(add);
+                print_asm_template3(add);
                 }
                 else{
                  rtl_sub(&result,&id_src2->val,&id_src->val);
                  rtl_sr(id_dest->reg,&result,4);
-                 print_asm_template2(sub);
+                 print_asm_template3(sub);
                  }
                
                 break;
@@ -183,7 +183,7 @@ make_EHelper(r){
                 shift=id_src2->val & 0x0000001f;
                 rtl_shl(&result,&id_src->val,&shift);
                 rtl_sr(id_dest->reg,&result,4);
-               print_asm_template2(sll);
+               print_asm_template3(sll);
                 break;
           case 2:
                 src=id_src->val;
@@ -197,7 +197,7 @@ make_EHelper(r){
                 else{
                    rtl_sr(id_dest->reg,&result,4);
                    }
-                   print_asm_template2(slt);
+                   print_asm_template3(slt);
                   break; 
                    
           case 3:
@@ -211,36 +211,36 @@ make_EHelper(r){
                 else{
                    rtl_sr(id_dest->reg,&result,4);
                    }
-                   print_asm_template2(sltu);
+                   print_asm_template3(sltu);
                   break; 
           case 4:             
                 rtl_xor(&result,&id_src2->val,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
-               print_asm_template2(xor);
+               print_asm_template3(xor);
                 break;       
           case 5:
                 if(decinfo.isa.instr.funct7==0){              
                 shift=id_src2->val & 0x0000001f;
                 rtl_shr(&result,&id_src->val,&shift);
                 rtl_sr(id_dest->reg,&result,4);
-              print_asm_template2(srl);
+              print_asm_template3(srl);
                 }
                 else{
                 shift=id_src2->val & 0x0000001f;
                 rtl_sar(&result,&id_src->val,&shift);
                 rtl_sr(id_dest->reg,&result,4);
-              print_asm_template2(sra);
+              print_asm_template3(sra);
                  }
                 break;           
           case 6:             
                 rtl_or(&result,&id_src2->val,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
-               print_asm_template2(or);
+               print_asm_template3(or);
                 break;                
           case 7:          
                 rtl_and(&result,&id_src2->val,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
-               print_asm_template2(and);
+               print_asm_template3(and);
                 break;          
 }
 
