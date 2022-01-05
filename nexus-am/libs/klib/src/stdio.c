@@ -8,10 +8,6 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  return 0;
-}
-
-int sprintf(char *out, const char *fmt, ...) {
 char *temp=out;
 while(*fmt!='\0'){
 if(*fmt!='%'){
@@ -84,7 +80,15 @@ fmt++;
 *temp='\0';
 
 return temp-out;
-char *temp=out;
+}
+
+int sprintf(char *out, const char *fmt, ...) {
+ va_list ap;
+ va_start(ap,fmt);
+ int length=vsprintf(out,fmt,ap);
+ va_end(ap);
+ return length;
+
 
 }
 
