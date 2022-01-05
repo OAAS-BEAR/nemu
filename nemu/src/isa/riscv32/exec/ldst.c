@@ -13,7 +13,7 @@ make_EHelper(ld) {
      if(decinfo.isa.instr.funct3==1){
      // lh
      rtl_lm(&s0,&id_src->addr,2);
-     int result=s0;
+     int32_t result=s0;
      result=result<<16>>16;
      rtl_sr(id_dest->reg, &result, 4);
      }
@@ -29,7 +29,7 @@ make_EHelper(ld) {
     if(decinfo.isa.instr.funct3==0){
     //lb
       rtl_lm(&s0,&id_src->addr,1);
-     int result=s0;
+     int32_t result=s0;
      result=result<<24>>24; 
          rtl_sr(id_dest->reg, &result, 4);
     
