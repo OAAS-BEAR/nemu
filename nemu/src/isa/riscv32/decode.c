@@ -82,7 +82,7 @@ make_DHelper(ld) {
 }
 make_DHelper(RI){
   decode_op_r(id_src, decinfo.isa.instr.rs1, true);
-  if(decinfo.isa.instr.funct3==1|decinfo.isa.instr.funct3==5){
+  if(decinfo.isa.instr.funct3==1||decinfo.isa.instr.funct3==5){
   decode_op_i(id_src2, decinfo.isa.instr.rs2, true);
   }
   
