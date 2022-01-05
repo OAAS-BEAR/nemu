@@ -73,7 +73,7 @@ make_EHelper(ri){
                   
                    
           case 3:
-                imm=id_src2->val;
+             /*   imm=id_src2->val;
                 imm=imm<<20>>20;
                 uimm=imm;
                 ur_value=(unsigned)id_src->val;
@@ -85,6 +85,9 @@ make_EHelper(ri){
                 else{
                    rtl_sr(id_dest->reg,&result,4);
                    }
+                   */
+                  result=(unsigned) id_src->val<(unsigned) id_src2->val;
+                  rtl_sr(id_dest->reg,&result,4);
                    print_asm_template3(sltiu);
                   break;
           case 4:
