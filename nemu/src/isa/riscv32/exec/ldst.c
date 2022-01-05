@@ -7,13 +7,15 @@ make_EHelper(ld) {
     case 4: 
       rtl_lm(&s0, &id_src->addr, decinfo.width);
       rtl_sr(id_dest->reg, &s0, 4);
-    print_asm_template2(lw); break;
+    print_asm_template2(lw);
+     break;
     case 2: 
      if(decinfo.isa.instr.funct3==1){
      // lh
      rtl_lm(&s0,&id_src->addr,2);
      int result=s0;
      result=result<<16>>16;
+     rtl_sr(id_dest->reg, &result, 4);
      }
      else{
      // lhu
@@ -28,7 +30,8 @@ make_EHelper(ld) {
     //lb
       rtl_lm(&s0,&id_src->addr,1);
      int result=s0;
-     result=result<<24>>24;     
+     result=result<<24>>24; 
+         rtl_sr(id_dest->reg, &result, 4);
     
     }
     else{
