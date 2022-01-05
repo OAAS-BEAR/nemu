@@ -1,7 +1,7 @@
 #include "cpu/exec.h"
 
 make_EHelper(ld) {
-  rtl_lm(&s0, &id_src->addr, decinfo.width);
+  rtl_lm(&s0, id_src->addr, decinfo.width);
   rtl_sr(id_dest->reg, &s0, 4);
 
   switch (decinfo.width) {
@@ -13,7 +13,7 @@ make_EHelper(ld) {
 }
 
 make_EHelper(st) {
-  rtl_sm(&id_src->addr, &id_dest->val, decinfo.width);
+  rtl_sm(id_src->addr, &id_dest->val, decinfo.width);
 
   switch (decinfo.width) {
     case 4: print_asm_template2(sw); break;
