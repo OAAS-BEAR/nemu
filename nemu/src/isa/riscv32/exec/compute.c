@@ -196,11 +196,11 @@ make_EHelper(r){
                 rtl_sr(id_dest->reg,&result,4);
                 print_asm_template3(add);
                 }
-   /*             else if(decinfo.isa.instr.funct7==1){
+                else if(decinfo.isa.instr.funct7==1){
                  rtl_imul_lo(&result,&id_src->val,&id_src2->val);
                 rtl_sr(id_dest->reg,&result,4);
                 print_asm_template3(mul);
-                }    */           
+                }              
                 
                 else {
                  rtl_sub(&result,&id_src->val,&id_src2->val);
@@ -257,12 +257,12 @@ make_EHelper(r){
                 rtl_sr(id_dest->reg,&result,4);
                print_asm_template3(xor);
                }
-          /*    else{
+              else{
                  rtl_idiv_q(&result,&id_src->val,&id_src2->val);
                  rtl_sr(id_dest->reg,&result,4);
                  print_asm_template3(div);
                  }
-              */
+              
                 break;       
           case 5:
                 if(decinfo.isa.instr.funct7==0){              
@@ -271,22 +271,42 @@ make_EHelper(r){
                 rtl_sr(id_dest->reg,&result,4);
               print_asm_template3(srl);
                 }
-                else{
+                else if(decinfo.isa.instr.funct7==32){
                 shift=id_src2->val & 0x0000001f;
                 rtl_sar(&result,&id_src->val,&shift);
                 rtl_sr(id_dest->reg,&result,4);
               print_asm_template3(sra);
                  }
+                 else{
+                 rtl_div_q(&result,&id_src->val,&id_src2->val);
+                 rtl_sr(id_dest->reg,&result,4);
+                 print_asm_template3(divu);
+                 }
                 break;           
-          case 6:             
+          case 6:  
+                if(decinfo.isa.instr.funct7==0){
                 rtl_or(&result,&id_src2->val,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
                print_asm_template3(or);
+               }
+               else{
+                 rtl_idiv_r(&result,&id_src->val,&id_src2->val);
+                 rtl_sr(id_dest->reg,&result,4);
+                 print_asm_template3(divr);
+               }
                 break;                
-          case 7:          
+          case 7:   
+           if(decinfo.isa.instr.funct7==0){       
                 rtl_and(&result,&id_src2->val,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
                print_asm_template3(and);
+               }
+               else{
+                 rtl_div_r(&result,&id_src->val,&id_src2->val);
+                 rtl_sr(id_dest->reg,&result,4);
+                 print_asm_template3(udivr);
+                 }
+               
                 break;          
 }
 
