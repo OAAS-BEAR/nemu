@@ -73,7 +73,9 @@ make_EHelper(ri){
                   
                    
           case 3:
-                uimm=(unsigned)id_src2->val;
+                imm=id_src2->val;
+                imm=imm<<20>>20;
+                uimm=imm;
                 ur_value=(unsigned)id_src->val;
                 result=0;
                 if(ur_value<uimm){
