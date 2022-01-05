@@ -47,6 +47,14 @@ make_EHelper(ri){
                 rtl_sr(id_dest->reg,&result,4);
                 print_asm_template3(addi);
                 break;
+          case 1:
+                imm=id_src2->val;
+                imm=imm<<20>>20;
+                result=0;                
+                rtl_shl(&result,&id_src->val,&imm);
+                rtl_sr(id_dest->reg,&result,4);
+                print_asm_template3(slli);
+                break;              
           case 2:
                 imm=id_src2->val;
                 imm=imm<<20>>20;
@@ -87,6 +95,24 @@ make_EHelper(ri){
                 rtl_sr(id_dest->reg,&result,4);
                print_asm_template3(xori);
                 break;    
+          case 5:
+                if(decinfo.isa.instr.funct7==0){
+                imm=id_src2->val;
+                imm=imm<<20>>20;
+                result=0;                
+                rtl_shr(&result,&id_src->val,&imm);
+                rtl_sr(id_dest->reg,&result,4);
+                print_asm_template3(srli);     
+                }
+                else{
+                imm=id_src2->val;
+                imm=imm<<20>>20;
+                result=0;                
+                rtl_sar(&result,&id_src->val,&imm);
+                rtl_sr(id_dest->reg,&result,4);
+                print_asm_template3(slli); 
+                }
+                break;          
                      
           case 6:
                 imm=id_src2->val;
