@@ -142,41 +142,41 @@ make_EHelper(b){
         case 0:
               if(id_src->val==id_src2->val)
                  rtl_j(id_dest->val+cpu.pc);
-                 print_asm_template2(beq);
+                 print_asm_template3(beq);
                break;
 
         case 1:
               if(id_src->val!=id_src2->val)
                  rtl_j(id_dest->val+cpu.pc);
-                 print_asm_template2(bne);
+                 print_asm_template3(bne);
                break; 
         case 4:
               src=id_src->val;
               src2=id_src2->val;
               if(src<src2)
                 rtl_j(id_dest->val+cpu.pc);
-               print_asm_template2(blt); 
+               print_asm_template3(blt); 
               break;
         case 5:
               src=id_src->val;
               src2=id_src2->val;
               if(src>src2)
                 rtl_j(id_dest->val+cpu.pc);
-                print_asm_template2(bge);
+                print_asm_template3(bge);
               break; 
         case 6:
               usrc=id_src->val;
               usrc2=id_src2->val;
               if(usrc<usrc2)
                 rtl_j(id_dest->val+cpu.pc);
-                print_asm_template2(bltu);
+                print_asm_template3(bltu);
               break;
         case 7:
               usrc=id_src->val;
               usrc2=id_src2->val;
               if(usrc>usrc2)
                 rtl_j(id_dest->val+cpu.pc);
-                print_asm_template2(bgeu);
+                print_asm_template3(bgeu);
               break;  
               }
               }
