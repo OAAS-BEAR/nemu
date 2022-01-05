@@ -160,7 +160,7 @@ make_EHelper(b){
         case 5:
               src=id_src->val;
               src2=id_src2->val;
-              if(src>src2)
+              if(src>=src2)
                 rtl_j(id_dest->val+cpu.pc);
                 print_asm_template3(bge);
               break; 
