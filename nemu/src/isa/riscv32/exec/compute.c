@@ -196,18 +196,32 @@ make_EHelper(r){
                 rtl_sr(id_dest->reg,&result,4);
                 print_asm_template3(add);
                 }
-                else{
-                 rtl_sub(&result,&id_src2->val,&id_src->val);
+                else if(decinfo.isa.instr.funct7==1){
+                 rtl_imul_lo(&result,&id_src->val,&id_src2->val);
+                rtl_sr(id_dest->reg,&result,4);
+                print_asm_template3(mul);
+                }               
+                
+                else {
+                 rtl_sub(&result,&id_src->val,&id_src2->val);
                  rtl_sr(id_dest->reg,&result,4);
                  print_asm_template3(sub);
                  }
                
                 break;
           case 1:
+                if(decinfo.isa.instr.funct7==0){
                 shift=id_src2->val & 0x0000001f;
                 rtl_shl(&result,&id_src->val,&shift);
                 rtl_sr(id_dest->reg,&result,4);
                print_asm_template3(sll);
+               }
+               else{
+                 rtl_imul_hi(&result,&id_src2->val,&id_src->val);
+                rtl_sr(id_dest->reg,&result,4);
+                print_asm_template3(mulh);
+                }
+               
                 break;
           case 2:
                 src=id_src->val;
@@ -237,10 +251,18 @@ make_EHelper(r){
                    }
                    print_asm_template3(sltu);
                   break; 
-          case 4:             
+          case 4: 
+           if(decinfo.isa.instr.funct7==0){            
                 rtl_xor(&result,&id_src2->val,&id_src->val);
                 rtl_sr(id_dest->reg,&result,4);
                print_asm_template3(xor);
+               }
+              else{
+                 rtl_idiv_q(&result,&id_src->val,&id_src2->val);
+                 rtl_sr(id_dest->reg,&result,4);
+                 print_asm_template3(div);
+                 }
+              
                 break;       
           case 5:
                 if(decinfo.isa.instr.funct7==0){              
