@@ -51,7 +51,7 @@ make_EHelper(ri){
                 imm=id_src2->val;
                 imm=imm<<20>>20;
                 result=0;                
-                rtl_shl(&result,&id_src->val,&imm);
+                rtl_shl(&result,&id_src->val,&id_src2->reg);
                 rtl_sr(id_dest->reg,&result,4);
                 print_asm_template3(slli);
                 break;              
@@ -98,7 +98,7 @@ make_EHelper(ri){
                 imm=id_src2->val;
                 imm=imm<<20>>20;
                 result=0;                
-                rtl_shr(&result,&id_src->val,&imm);
+                rtl_shr(&result,&id_src->val,&id_src2->reg);
                 rtl_sr(id_dest->reg,&result,4);
                 print_asm_template3(srli);     
                 }
@@ -106,7 +106,7 @@ make_EHelper(ri){
                 imm=id_src2->val;
                 imm=imm<<20>>20;
                 result=0;                
-                rtl_sar(&result,&id_src->val,&imm);
+                rtl_sar(&result,&id_src->val,&id_src2->reg);
                 rtl_sr(id_dest->reg,&result,4);
                 print_asm_template3(slli); 
                 }
