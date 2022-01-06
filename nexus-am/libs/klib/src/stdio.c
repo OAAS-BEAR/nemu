@@ -4,7 +4,7 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-  va_list ap;
+ /* va_list ap;
   va_start(ap,fmt);
   char s[1000];
   int l=vsprintf(s,fmt,ap);
@@ -14,7 +14,8 @@ int printf(const char *fmt, ...) {
   _putc(s[i]);
   i++;
   }
-  return l;
+  return l;*/
+  return 0;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
