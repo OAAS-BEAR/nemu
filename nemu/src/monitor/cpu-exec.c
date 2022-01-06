@@ -73,10 +73,12 @@ void cpu_exec(uint64_t n) {
 #endif
 
     if (nemu_state.state != NEMU_RUNNING) break;
+  #ifdef DEBUG
     if(change){
 	    nemu_state.state=NEMU_STOP;
 	    break;
     }
+    #endif
   }
 
   switch (nemu_state.state) {
