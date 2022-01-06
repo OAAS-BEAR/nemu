@@ -29,6 +29,7 @@ make_EHelper(jr){
            
            vaddr_t r_pc=decinfo.seq_pc;
            rtl_sr(id_dest->reg,&r_pc,4);
+           difftest_skip_dut(1,2);
            print_asm_template2(jr);
          }
            
