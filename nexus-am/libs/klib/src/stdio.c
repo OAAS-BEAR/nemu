@@ -10,7 +10,7 @@ int printf(const char *fmt, ...) {
   int l=vsprintf(s,fmt,ap);
   va_end(ap);
   int i=0;
-  while(s[i]!=0){
+  while(s[i]!='\0'){
   _putc(s[i]);
   i++;
   }
