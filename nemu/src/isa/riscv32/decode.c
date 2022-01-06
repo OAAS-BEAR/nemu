@@ -48,7 +48,7 @@ make_DHelper(JAL){
 make_DHelper(B){
     int32_t offset=decinfo.isa.instr.simm12<<12|decinfo.isa.instr.imm11<<11|decinfo.isa.instr.imm10_5<<5|decinfo.isa.instr.imm4_1<<1;
     offset=((offset<<19)>>19);
-    Log("offset %x\n",offset);
+ //   Log("offset %x\n",offset);
     decode_op_i(id_dest,offset,true);
     decode_op_r(id_src, decinfo.isa.instr.rs1, true);
     decode_op_r(id_src2, decinfo.isa.instr.rs2, true);    
