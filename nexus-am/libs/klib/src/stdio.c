@@ -6,7 +6,7 @@
 int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap,fmt);
-  char s[2500];
+  char s[1000];
   int l=vsprintf(s,fmt,ap);
   va_end(ap);
   int i=0;
