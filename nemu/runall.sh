@@ -12,14 +12,14 @@ else
 fi
 
 echo "compiling testcases..."
-if make -C $AM_HOME/tests/amtest ARCH=$ISA-nemu &> /dev/null; then
+if make -C $AM_HOME/tests/cputest ARCH=$ISA-nemu &> /dev/null; then
   echo "testcases compile OK"
 else
   echo "testcases compile error... exit..."
   exit
 fi
 
-files=`ls $AM_HOME/tests/amtest/build/*-$ISA-nemu.bin`
+files=`ls $AM_HOME/tests/cputest/build/*-$ISA-nemu.bin`
 ori_log="build/nemu-log.txt"
 
 for file in $files; do
