@@ -7,28 +7,31 @@ make_EHelper(lui) {
 }
 
 
-make_EHelper(aui){
-  rtl_sr(id_dest->reg, &id_src->val, 4);
+make_EHelper(aui){ 
+  rtl_add(&id_dest->val,&cpu.pc,&id_src->val);
+  rtl_sr(id_dest->reg, &id_dest->val, 4);
 
   print_asm_template2(aui);
   }
   
 make_EHelper(j){
+   vaddr_t r_pc=cpu.pc+4;
+   rtl_sr(id_dest->reg,&r_pc,4);
    rtl_add(&decinfo.jmp_pc,&id_src->val,&cpu.pc);
    rtl_j(decinfo.jmp_pc);
 //   Log("pc %x\n",decinfo.jmp_pc);
-   vaddr_t r_pc=decinfo.seq_pc;
-   rtl_sr(id_dest->reg,&r_pc,4);
+  // vaddr_t r_pc=de;
+
    print_asm_template2(j);
  
 }
 
 make_EHelper(jr){
-           vaddr_t n_pc=id_src->addr & 0xfffffffe;
-           rtl_j(n_pc);
            
-           vaddr_t r_pc=decinfo.seq_pc;
+           vaddr_t r_pc=cpu.pc+4;;
            rtl_sr(id_dest->reg,&r_pc,4);
+           decinfo.jmp_pc=id_src->addr & 0xfffffffe;
+           rtl_j(decinfo.jmp_pc);
            difftest_skip_dut(1,2);
            print_asm_template2(jr);
          }
@@ -180,7 +183,7 @@ make_EHelper(b){
         case 7:
               usrc=id_src->val;
               usrc2=id_src2->val;
-              if(usrc>usrc2)
+              if(usrc>=usrc2)
                 rtl_j(id_dest->val+cpu.pc);
                 print_asm_template3(bgeu);
               break;  
