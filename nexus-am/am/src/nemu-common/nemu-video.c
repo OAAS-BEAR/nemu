@@ -13,6 +13,10 @@ size_t __am_video_read(uintptr_t reg, void *buf, size_t size) {
   }
   return 0;
 }
+static inline int min(int x, int y) {
+  return (x < y) ? x : y;
+}
+
 
 size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
@@ -24,16 +28,15 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
       uint32_t *fb=(uint32_t*)FB_ADDR;
       int W=screen_width();
       int H=screen_height();
-  /*   
-       int cp_bytes;
-       if(w<W-x){
-       cp_bytes=sizeof(uint32_t)*w;
-       }
-       else{
-       cp_bytes=sizeof(uint32_t)*(W-x);
-  }
-   */
      
+  
+        int cp_bytes = sizeof(uint32_t) * min(w, W - x);
+      for (int j = 0; j < h && y + j < H; j ++) {
+        memcpy(&fb[(y + j) * W + x], pixels, cp_bytes);
+        pixels += w;
+        }
+   
+ /*    
   for(int i=0;i<h;i++){
        for (int j = 0; j < w; j ++) {
             fb[(y+i)*W+j+x]=pixels[i*w+j];
@@ -41,7 +44,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
       }
       if (ctl->sync) {
         //outl(SYNC_ADDR, 0);
-      }
+      }*/
       return size;
     }
   }
