@@ -25,7 +25,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
        int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
       uint32_t *pixels = ctl->pixels;
      
-      uint32_t *fb=(uint32_t*)FB_ADDR;
+      uint32_t *fb=(uint32_t*)(FB_ADDR);
       int W=screen_width();
       int H=screen_height();
      
