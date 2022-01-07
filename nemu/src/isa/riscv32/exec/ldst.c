@@ -13,9 +13,10 @@ make_EHelper(ld) {
      if(decinfo.isa.instr.funct3==1){
      // lh
      rtl_lm(&s0,&id_src->addr,2);
-     int32_t result=s0;
-     result=result<<16>>16;
-     rtl_sr(id_dest->reg, &result, 4);
+    /* int32_t result=s0;
+     result=result<<16>>16;*/
+     rtl_sext(&s1,&s0,2);
+     rtl_sr(id_dest->reg, &s1, 4);
      }
      else{
      // lhu
@@ -29,9 +30,10 @@ make_EHelper(ld) {
     if(decinfo.isa.instr.funct3==0){
     //lb
       rtl_lm(&s0,&id_src->addr,1);
-     int32_t result=s0;
-     result=result<<24>>24; 
-         rtl_sr(id_dest->reg, &result, 4);
+    // int32_t result=s0;
+    // result=result<<24>>24; 
+     rtl_sext(&s1,&s0,1);
+         rtl_sr(id_dest->reg, &s1, 4);
     
     }
     else{
