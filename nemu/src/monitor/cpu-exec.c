@@ -61,7 +61,7 @@ void cpu_exec(uint64_t n) {
   log_clearbuf();
 
     /* TODO: check watchpoints here. */
-  bool change=check_watchpoints();
+ // bool change=check_watchpoints();
 
 #endif
 
@@ -74,10 +74,10 @@ void cpu_exec(uint64_t n) {
 
     if (nemu_state.state != NEMU_RUNNING) break;
   #ifdef DEBUG
-    if(change){
+ /*   if(change){
 	    nemu_state.state=NEMU_STOP;
 	    break;
-    }
+    }*/
     #endif
   }
 
