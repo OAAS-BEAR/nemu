@@ -35,6 +35,10 @@ make_DHelper(AUIPC){
    print_Dop(id_src->str, OP_STR_SIZE, "0x%x", decinfo.isa.instr.imm31_12 << 12);
    
    }
+make_DHelper(ECALL){
+decode_op_r(id_src, decinfo.isa.instr.rs1, true);
+decode_op_r(id_dest, decinfo.isa.instr.rd, false);
+}
    
 make_DHelper(JAL){
     int32_t offset=(decinfo.isa.instr.simm20<<20)|(decinfo.isa.instr.imm19_12<<12)|(decinfo.isa.instr.imm11_<<11)|(decinfo.isa.instr.imm10_1<<1);

@@ -61,4 +61,5 @@ make_DHelper(JALR);
 make_DHelper(AUIPC);
 make_DHelper(B);
 make_DHelper(R);
+make_DHelper(ECALL);
 #endif

@@ -14,3 +14,4 @@ make_EHelper(aui);
 make_EHelper(jr);
 make_EHelper(b);
 make_EHelper(r);
+make_EHelper(ec);
