@@ -23,7 +23,7 @@ void init_proc() {
   switch_boot_pcb();
 
   Log("Initializing processes...");
-
+  naive_uload(NULL,"/build/ramdisk.img");
   // load program here
 
 }
