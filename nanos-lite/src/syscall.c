@@ -4,8 +4,12 @@
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
-
+  
   switch (a[0]) {
+    case 0://sys_exit()
+     _halt(c->GPR2);
+     break;
+     
     case 1:// sys_yield()
     _yield();
     c->GPRx=0;
