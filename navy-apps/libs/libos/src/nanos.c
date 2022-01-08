@@ -38,6 +38,7 @@
 #error syscall is not supported
 #endif
 
+extern char _end;
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   register intptr_t _gpr1 asm (GPR1) = type;
   register intptr_t _gpr2 asm (GPR2) = a0;
@@ -65,9 +66,13 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
-  
- // int ret=_syscall_(SYS_brk,new_break,0,0);
-//  if(ret==0) return  (void*)new_break;
+ /* static void *b=&_end;
+  void * r=b;
+  int ret=_syscall_(SYS_brk,b+increment,0,0);
+  if(ret==0){
+   b=b+increment;
+   return (void*)r;
+   }*/
   return (void *)-1;
 }
 
