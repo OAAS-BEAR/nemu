@@ -65,6 +65,9 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
+  
+ // int ret=_syscall_(SYS_brk,new_break,0,0);
+//  if(ret==0) return  (void*)new_break;
   return (void *)-1;
 }
 
