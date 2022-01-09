@@ -45,6 +45,7 @@ _Context* do_syscall(_Context *c) {
      break;
      case SYS_close:
      c->GPRx=fs_close(a[1]);
+     break;
      case SYS_execve:
      naive_uload(NULL,a[1]);
      break;
