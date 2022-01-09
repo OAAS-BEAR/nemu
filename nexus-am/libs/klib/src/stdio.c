@@ -56,7 +56,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
              flag++;
              integer=integer/10;
              }
-           for(count=flag-1;flag>=0;flag--){
+           for(count=flag-1;count>=0;count--){
               *t++=number[count];
             }
             break;
