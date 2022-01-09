@@ -75,11 +75,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
            *t++='-';
             integer=-integer;
             }
-           flag=0;
            while(integer!=0){
              number[flag]=integer%10+'0';
-             flag++;
              integer=integer/10;
+             flag++;
              }
            for(count=flag-1;count>=0;count--){
               *t++=number[count];
