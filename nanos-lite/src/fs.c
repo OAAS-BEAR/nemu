@@ -15,6 +15,9 @@ typedef struct {
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
 extern events_read(void*, size_t,size_t);
 extern size_t serial_write(const void *buf, size_t offset, size_t len);
+size_t fbsync_write(const void *buf, size_t offset, size_t len);
+size_t fb_write(const void *buf, size_t offset, size_t len);
+size_t dispinfo_read(void *buf, size_t offset, size_t len);
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
   return 0;
@@ -37,7 +40,10 @@ static Finfo file_table[] __attribute__((used)) = {
   {"stdin", 0, 0, invalid_read, invalid_write},
   {"stdout", 0, 0, invalid_read, serial_write},
   {"stderr", 0, 0, invalid_read, serial_write},
-  {"/dev/events",0xffff,0,0,events_read,invalid_write},
+  {"/dev/events",0xfffff,0,0,events_read,invalid_write},
+  {"/dev/fb",0xfffff,0,0,invalid_read,fb_write},
+  {"/dev/fbsync",0xfffff,0,0,invalid_read,fbsync_write},
+  {"/proc/dispinfo",0xfffff,0,0,dispinfo_read,invalid_write},
 #include "files.h"
 };
 
@@ -109,4 +115,6 @@ else{
  
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+  int size=screen_width()*screen_height()*4;
+  file_table[FD_FB].size=size; 
 }
