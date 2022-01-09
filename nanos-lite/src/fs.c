@@ -40,8 +40,9 @@ static Finfo file_table[] __attribute__((used)) = {
   {"stdin", 0, 0, invalid_read, invalid_write},
   {"stdout", 0, 0, invalid_read, serial_write},
   {"stderr", 0, 0, invalid_read, serial_write},
-  {"/dev/events",0xfffff,0,0,events_read,invalid_write},
+ // {"/dev/events",0xfffff,0,0,events_read,invalid_write},
   {"/dev/fb",0xfffff,0,0,invalid_read,fb_write},
+  {"/dev/events",0xfffff,0,0,events_read,invalid_write},
   {"/dev/fbsync",0xfffff,0,0,invalid_read,fbsync_write},
   {"/proc/dispinfo",0xfffff,0,0,dispinfo_read,invalid_write},
 #include "files.h"
