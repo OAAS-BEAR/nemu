@@ -53,9 +53,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
                   char ss=mode<10? mode+'0':mode-10+'a';
                   number[flag++]=ss;
                   }
-               for(count=flag;count>=0;count--){
-               *t++=number[count];
-                }
+           for(count=0;count<=flag-1;count++)
+           *t++=number[flag-1-count];
                break;
          
           case 's':
@@ -80,12 +79,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
              integer=integer/10;
              flag++;
              }
-           for(count=flag-1;count>=0;count--){
-              *t++=number[count];
+           for(count=0;count<=flag-1;count++)
+           *t++=number[flag-1-count];
             }
             break;
-
-
                 }
               fmt++;
             }
