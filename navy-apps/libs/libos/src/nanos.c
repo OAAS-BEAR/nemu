@@ -69,10 +69,10 @@ void *_sbrk(intptr_t increment) {
   static void *b=&_end;
   void * r=b;
   int ret=_syscall_(SYS_brk,b+increment,0,0);
-/*  if(ret==0){
+  if(ret==0){
    b=b+increment;
    return (void*)r;
-   }*/
+   }
   return (void *)-1;
 }
 
