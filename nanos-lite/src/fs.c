@@ -43,8 +43,8 @@ static Finfo file_table[] __attribute__((used)) = {
 int fs_open(const char*filename,int flags,int mode){
   for(int i=0;i<NR_FILES;i++){
       if(strcmp(file_table[i].name,filename)==0){
-          file_table[i].offset=file_table[i].disk_offset;
-          return 0;
+          file_table[i].offset=0;
+          return i;
           }
        }
       assert(0);
