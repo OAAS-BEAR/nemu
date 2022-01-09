@@ -9,10 +9,10 @@ _Context* do_syscall(_Context *c) {
   a[3]=c->GPR4;
   switch (a[0]) {
     case 0://sys_exit()
-    // _halt(c->GPR2);
-    c->GPR1=SYS_execve;
+     _halt(c->GPR2);
+  /*  c->GPR1=SYS_execve;
     c->GPR2="/bin/init";
-    do_syscall(c);
+    do_syscall(c);*/
      break;
      
     case 1:// sys_yield()
