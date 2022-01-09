@@ -25,6 +25,9 @@ _Context* do_syscall(_Context *c) {
         c->GPRx=fs_write(a[1],a[2],a[3]);
        
         break;
+    case SYS_open:
+     c->GPRx=fs_open(a[1],a[2],a[3]);
+     break;
     case SYS_brk:
         c->GPRx=0;
         break;
