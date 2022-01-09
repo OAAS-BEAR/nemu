@@ -12,15 +12,16 @@
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
  // FILE* fp=fopen(filename,"r+");
+ int fd=fs_open(filename,0,0);
   Elf_Ehdr p;
-  ramdisk_read(&p,SEEK_SET,sizeof(p));
+  fs_read(fd,&p,sizeof(p));
   Elf_Phdr pp;
   for(int i=0;i<p.e_phnum;i++){
-    // fseek(fp,p.e_phoff+i*p.e_phentsize,SEEK_SET);
-     ramdisk_read(&pp,p.e_phoff+i*p.e_phentsize,sizeof(pp));
+     fs_lseek(fd,p.e_phoff+i*p.e_phentsize,SEEK_SET);
+     fs_read(fd,&pp,sizeof(pp));
      if(pp.p_type==PT_LOAD){
-       //fseek(fp,pp.p_offset,SEEK_SET);
-       ramdisk_read(pp.p_vaddr,pp.p_offset,pp.p_filesz);
+       fs_lseek(fd,pp.p_offset,SEEK_SET);
+       fs_read(fd,(void*)pp.p_vaddr,pp.p_filesz);
        memset(pp.p_vaddr+pp.p_filesz,0,pp.p_memsz-pp.p_filesz);
        }
        }
