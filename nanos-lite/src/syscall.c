@@ -47,7 +47,7 @@ _Context* do_syscall(_Context *c) {
      c->GPRx=fs_close(a[1]);
      break;
      case SYS_execve:
-     naive_uload(NULL,a[1]);
+     naive_uload(NULL,(const char*)a[1]);
      break;
     default: panic("Unhandled syscall ID = %d", a[0]); break;
   }
