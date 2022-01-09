@@ -22,10 +22,12 @@ _Context* do_syscall(_Context *c) {
        for( int i=0;i<a[3];i++){
           _putc(*(char*)(a[2]+i));
           }*/
+         printf("write %d\n",a[1]);
         c->GPRx=fs_write(a[1],a[2],a[3]);
        
         break;
     case SYS_open:
+     printf("open %s\n",a[1]);
      c->GPRx=fs_open(a[1],a[2],a[3]);
      break;
     case SYS_brk:
@@ -35,6 +37,7 @@ _Context* do_syscall(_Context *c) {
       c->GPRx=fs_lseek(a[1],a[2],a[3]);
       break;
      case SYS_read:
+     printf("read %d\n",a[1]);
      c->GPRx=fs_read(a[1],a[2],a[3]);
      break;
      case SYS_close:
