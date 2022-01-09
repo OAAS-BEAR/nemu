@@ -14,7 +14,7 @@ typedef struct {
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
 extern events_read(void*, size_t,size_t);
-extern serial_write(const void*,size_t,size_t);
+extern size_t serial_write(const void *buf, size_t offset, size_t len);
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
   return 0;
@@ -72,13 +72,10 @@ size_t fs_read(int fd,void* buf,size_t len){
       return len;
       }
 size_t fs_write(int fd,const void* buf,size_t len){
-/*     if(fd==1||fd==0){
-      for(int i=0;i<len;i++){
-       _putc(((char*)buf)[i]);
+    if(fd==1||fd==2){
+      return serial_write(buf,0,len);
        }
-       return len;
-       }
-  */
+  
      size_t offset=file_table[fd].offset;
      size_t size=file_table[fd].size;
      size_t disk_offset=file_table[fd].disk_offset;
