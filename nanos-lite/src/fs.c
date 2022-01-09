@@ -43,8 +43,8 @@ static Finfo file_table[] __attribute__((used)) = {
 int fs_open(const char*filename,int flags,int mode){
   for(int i=0;i<NR_FILES;i++){
       if(strcmp(file_table[i].name,filename)==0){
-          file_table[i].offset=0;
-          return i;
+          file_table[i].offset=file_table[i].disk_offset;
+          return 0;
           }
        }
       assert(0);
@@ -55,20 +55,24 @@ int fs_close(int fd){
  }
  
 size_t fs_read(int fd,void* buf,size_t len){
-     size_t off=file_table[fd].disk_offset+file_table[fd].offset;
-     if(file_table[fd].offset+len>file_table[fd].size){
-           len=file_table[fd].size-file_table[fd].offset;
+     size_t offset=file_table[fd].disk_offset+file_table[fd].offset;
+     size_t size=file_table[fd].size;
+     size_t disk_offset=file_table[fd].disk_offset;
+      if(offset+len>disk_offset+size){
+           len=disk_offset+size-offset;
            }
-      ramdisk_read(buf, off, len);
+      ramdisk_read(buf, offset, len);
       file_table[fd].offset+=len;
       return len;
       }
 size_t fs_write(int fd,const void* buf,size_t len){
-     size_t off=file_table[fd].disk_offset+file_table[fd].offset;
-     if(file_table[fd].offset+len>file_table[fd].size){
-           len=file_table[fd].size-file_table[fd].offset;
+     size_t offset=file_table[fd].disk_offset+file_table[fd].offset;
+     size_t size=file_table[fd].size;
+     size_t disk_offset=file_table[fd].disk_offset;
+      if(offset+len>disk_offset+size){
+           len=disk_offset+size-offset;
            }
-       ramdisk_write(buf, off, len);
+      ramdisk_write(buf, offset, len);
       file_table[fd].offset+=len;
       return len;
       }
@@ -80,14 +84,15 @@ size_t fs_lseek(int fd,size_t offset,int whence){
               file_table[fd].offset=file_table[fd].size-1;
           }
           else if(whence==SEEK_CUR){
-          if(offset+file_table[fd].offset<file_table[fd].size)
+          if(offset+file_table[fd].offset<file_table[fd].size&&offset+file_table[fd].offset>0)
             file_table[fd].offset+=offset;
             else
             file_table[fd].offset=file_table[fd].size-1;    
             
           }
           else{
-          ;
+          if(offset+file_table[fd].size-1<file_table[fd].size&&offset+file_table[fd].size-1>0)
+            file_table[fd].offset=offset+file_table[fd].size-1;
           }
           return file_table[fd].offset;
      }       
