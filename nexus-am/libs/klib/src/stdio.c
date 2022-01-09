@@ -19,78 +19,82 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-char *temp=out;
-while(*fmt!='\0'){
-if(*fmt!='%'){
-*temp++=*fmt++;
-}
-else{
-fmt++;
-switch(*fmt){
-case 's':{
-char *str=va_arg(ap,char*);
-while(*str!='\0'){
-*temp++=*str++;
-}
-break;
-}
-case 'd':{
-int n=va_arg(ap,int);
-if(n==0){
-*temp++='0';
-break;
-}
-if(n<0){
-*temp++='-';
-n=-n;
-}
-char buf[11];
-int i=0;
-while(n!=0){
-buf[i++]=n%10+'0';
-n=n/10;
-}
-for(int j=i-1;j>=0;j--){
-*temp++=buf[j];
-}
-break;
-}
-case 'x':{
-int n=va_arg(ap,int);
-if(n==0){
-*temp++='0';
-*temp++='x';
-*temp++='0';
-break;
-}
-if(n<0){
-*temp++='-';
-n=-n;
-}
-char buf[12];
-int i=0;
-while(n!=0){
-int a=n%16;
-if(a<10)
-buf[i++]=a+'0';
-else
-buf[i++]=a-10+'a';
-n=n/16;
-}
-*temp++='0';
-*temp++='x';
-for(int j=i-1;j>=0;j--){
-*temp++=buf[j];
-}
-break;
-}
-}
-fmt++;
-}
-}
-*temp='\0';
+    char *t=out;
+    char*s;
+    while(*fmt!='\0'){
+    char number[20];
+    int flag=0;
+    int count=0;
+    int integer;
+        if(*fmt!='%'){
+         *t=*fmt;
+         t++;
+         fmt++;
+         }
+       else{          
+         switch(*(++fmt)){
+          case 's':
+             s=va_arg(ap,char*);
+             while(*s!='\0')
+             *t++=*s++;
+              
+              break;
 
-return temp-out;
+          case 'd':
+           integer=va_arg(ap,int);
+           if(integer==0){
+            *t++='0';
+            break;
+           }
+           if(integer<0){
+           *t++='-';
+            integer=-integer;
+            }
+           flag=0;
+           while(integer!=0){
+             number[flag]=integer%10+'0';
+             flag++;
+             integer=integer/10;
+             }
+           for(count=flag-1;flag>=0;flag--){
+              *t++=number[flag];
+            }
+            break;
+
+            case 'x':
+                integer=va_arg(ap,int);
+                if(integer==0){
+                 *t++='0';
+                 *t++='x';
+                 *t++='0';
+                  break;
+                     }
+                if(integer<0){
+                   *t++='-';
+                    integer=-integer;
+                    }
+               while(integer!=0){
+                 int a=integer%16;
+                  if(a<10)
+                   number[flag++]=a+'0';
+                  else
+                   number[flag++]=a-10+'a';
+                  integer=integer/16;
+                  }
+                  *t++='0';
+                  *t++='x';
+               for(count=flag;count>=0;count--){
+               *t++=number[count];
+                }
+               break;
+
+                }
+              fmt++;
+            }
+       }
+    *t='\0';
+
+    return t-out;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
