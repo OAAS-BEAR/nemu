@@ -33,6 +33,31 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
          }
        else{          
          switch(*(++fmt)){
+            case 'x':
+                integer=va_arg(ap,int);
+                if(integer==0){
+                 *t++='0';
+                 *t++='x';
+                 *t++='0';
+                  break;
+                     }
+                if(integer<0){
+                   *t++='-';
+                   *t++-'0';
+                   *t++='x';
+                    integer=-integer;
+                    }
+               while(integer!=0){
+                  int mode=integer%16;
+                  integer=integer/16;
+                  char ss=mode<10? mode+'0':mode-10+'a';
+                  number[flag++]=ss;
+                  }
+               for(count=flag;count>=0;count--){
+               *t++=number[count];
+                }
+               break;
+         
           case 's':
              s=va_arg(ap,char*);
              while(*s!='\0')
@@ -61,32 +86,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
             }
             break;
 
-            case 'x':
-                integer=va_arg(ap,int);
-                if(integer==0){
-                 *t++='0';
-                 *t++='x';
-                 *t++='0';
-                  break;
-                     }
-                if(integer<0){
-                   *t++='-';
-                    integer=-integer;
-                    }
-               while(integer!=0){
-                 int a=integer%16;
-                  if(a<10)
-                   number[flag++]=a+'0';
-                  else
-                   number[flag++]=a-10+'a';
-                  integer=integer/16;
-                  }
-                  *t++='0';
-                  *t++='x';
-               for(count=flag;count>=0;count--){
-               *t++=number[count];
-                }
-               break;
 
                 }
               fmt++;
