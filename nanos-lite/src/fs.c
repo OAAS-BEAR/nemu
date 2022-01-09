@@ -55,15 +55,15 @@ int fs_close(int fd){
  }
  
 size_t fs_read(int fd,void* buf,size_t len){
-     size_t offset=file_table[fd].disk_offset+file_table[fd].offset;
+     size_t offset=file_table[fd].offset;
      size_t size=file_table[fd].size;
      size_t disk_offset=file_table[fd].disk_offset;
-      if(offset+len>disk_offset+size){
+      if(offset+len>size){
            len=disk_offset+size-offset;
            }
-      ramdisk_read(buf, offset, len);
+     size_t l= ramdisk_read(buf, offset+disk_offset, len);
       file_table[fd].offset+=len;
-      return len;
+      return l;
       }
 size_t fs_write(int fd,const void* buf,size_t len){
      if(fd==1||fd==0){
@@ -72,15 +72,15 @@ size_t fs_write(int fd,const void* buf,size_t len){
        }
        return len;
        }
-     size_t offset=file_table[fd].disk_offset+file_table[fd].offset;
+     size_t offset=file_table[fd].offset;
      size_t size=file_table[fd].size;
      size_t disk_offset=file_table[fd].disk_offset;
       if(offset+len>disk_offset+size){
-           len=disk_offset+size-offset;
+           len=size-offset;
            }
-      ramdisk_write(buf, offset, len);
+      size_t l=ramdisk_write(buf, offset+disk_offset, len);
       file_table[fd].offset+=len;
-      return len;
+      return l;
       }
 size_t fs_lseek(int fd,size_t offset,int whence){
         if(whence==SEEK_SET){
