@@ -66,6 +66,12 @@ size_t fs_read(int fd,void* buf,size_t len){
       return len;
       }
 size_t fs_write(int fd,const void* buf,size_t len){
+     if(fd==1||fd==0){
+      for(int i=0;i<len;i++){
+       _putc(((char*)buf)[i]);
+       }
+       return len;
+       }
      size_t offset=file_table[fd].disk_offset+file_table[fd].offset;
      size_t size=file_table[fd].size;
      size_t disk_offset=file_table[fd].disk_offset;
