@@ -81,7 +81,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
              }
            for(count=0;count<=flag-1;count++)
            *t++=number[flag-1-count];
-            }
+            
             break;
                 }
               fmt++;
